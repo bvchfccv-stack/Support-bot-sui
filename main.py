@@ -3,8 +3,8 @@ from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
 
 # ENV (Render)
-TOKEN = os.getenv("TOKEN")
-ADMIN_ID = os.getenv("ADMIN_ID")
+TOKEN = "8656706863:AAG6nchT03AIbXM2j3InWLjBwLKBLCvJQ-o"
+ADMIN_ID = 8363290963
 
 if not TOKEN or not ADMIN_ID:
     raise Exception("Missing TOKEN or ADMIN_ID in environment variables")
