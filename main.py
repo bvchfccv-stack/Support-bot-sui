@@ -2,6 +2,7 @@ import os
 from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, ContextTypes, filters
 
+# ENV переменные (Render)
 TOKEN = os.getenv("TOKEN")
 ADMIN_ID = int(os.getenv("ADMIN_ID"))
 
@@ -27,11 +28,11 @@ async def support(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [["❌ Завершить диалог"]]
 
     await update.message.reply_text(
-        "Вы в поддержке. Напишите сообщение.",
+        "Вы вошли в поддержку. Напишите сообщение оператору.",
         reply_markup=ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
     )
 
-# сообщения
+# обработка сообщений
 async def handle(update: Update, context: ContextTypes.DEFAULT_TYPE):
     uid = update.effective_user.id
     text = update.message.text
@@ -48,10 +49,11 @@ async def handle(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     if user_state.get(uid) == "support":
         await context.bot.send_message(ADMIN_ID, f"User {uid}: {text}")
-        await update.message.reply_text("Отправлено в поддержку")
+        await update.message.reply_text("📨 Отправлено в поддержку")
     else:
         await update.message.reply_text("Нажмите /start")
 
+# запуск бота
 def main():
     app = Application.builder().token(TOKEN).build()
 
@@ -60,5 +62,6 @@ def main():
 
     app.run_polling()
 
+# ВАЖНО: правильная проверка
 if name == "__main__":
     main()
